@@ -1,0 +1,21 @@
+Milestone · PWA 部署说明
+
+PWA 必须放在 https 网址上才能"添加到主屏幕"并离线使用，直接双击 index.html 打开不行。
+
+最快的方式（任选一个，都免费）：
+1. Netlify Drop：打开 app.netlify.com/drop，把整个 milestone-pwa 文件夹拖进去，几秒后得到一个 https 网址。
+2. Vercel：注册后新建项目，上传这个文件夹。
+3. GitHub Pages：建一个仓库，把文件夹里的内容上传，在 Settings → Pages 里开启。
+
+装到手机上：
+- iPhone：用 Safari 打开网址 → 点底部"分享" → "添加到主屏幕"。
+- 安卓：用 Chrome 打开网址 → 右上角菜单 → "安装应用"（或地址栏会自动提示安装）。
+- 电脑：Chrome / Edge 地址栏右侧的安装图标。
+
+更新版本：替换 index.html 后，把 sw.js 第一行附近的 VERSION 改成 milestone-v2，用户下次联网打开就会自动换成新版。
+
+文件说明：
+- index.html            App 本体（照片已内嵌）
+- manifest.webmanifest  App 名称、图标、启动方式
+- sw.js                 离线缓存
+- icons/                主屏幕图标
