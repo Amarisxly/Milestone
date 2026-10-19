@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Milestone">
 <meta name="application-name" content="Milestone">
-<meta name="description" content="记录你到过的每一个高度：海拔线、户外运动探索、习惯和装备。">
+<meta name="description" content="记录你到过的每一个高度 · Every height you have reached, on one altitude line.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
@@ -21,10 +21,10 @@
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;height:100%}
-body{background:radial-gradient(circle at 50% 30%,#1a1a1d,#060607 70%);color:#fff;font-family:'Outfit','Noto Sans SC',system-ui,-apple-system,'PingFang SC',sans-serif;display:flex;align-items:center;justify-content:center;overflow:hidden;-webkit-font-smoothing:antialiased}
-#wrap{position:relative;flex:none;width:390px;height:844px}
-#stage{position:absolute;left:0;top:0;width:390px;height:844px;overflow:hidden;background:#000;transform-origin:0 0;border-radius:48px;box-shadow:0 0 0 10px #1C1C1E,0 0 0 11px #3A3A3C,0 40px 90px rgba(0,0,0,.7)}
-#wrap.full #stage{border-radius:0;box-shadow:none}
+body{background:#000;color:#fff;font-family:'Outfit','Noto Sans SC',system-ui,-apple-system,'PingFang SC',sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased;overscroll-behavior:none}
+:root{--top:max(20px,calc(env(safe-area-inset-top) + 10px));--bot:env(safe-area-inset-bottom)}
+#wrap{position:fixed;inset:0}
+#stage{position:absolute;inset:0;overflow:hidden;background:#000}
 button,input,textarea{font-family:inherit;color:inherit;font-size:inherit}
 button{cursor:pointer;border:none;background:none;padding:0;text-align:inherit}
 img{display:block}
@@ -46,7 +46,7 @@ label{cursor:pointer}
 .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
 .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
 .grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
-.top{flex:none;padding:52px 16px 12px}
+.top{flex:none;padding:var(--top) 16px 12px}
 .h1{margin:0;font-size:32px;font-weight:800;letter-spacing:-.5px}
 .h2{margin:0;font-size:20px;font-weight:800}
 .mute{color:#AEAEB2}
@@ -85,16 +85,16 @@ textarea.field{height:auto;padding:14px 18px;line-height:1.6;resize:none;font-si
 .bar>i{display:block;height:100%;border-radius:5px;transition:width .8s}
 .stat{background:#1C1C1E;border-radius:20px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
 .stat b{font-size:24px;font-weight:800}
-.footer{flex:none;padding:12px 16px 30px;border-top:1px solid #1C1C1E;display:flex;gap:10px}
+.footer{flex:none;padding:12px 16px calc(20px + var(--bot));border-top:1px solid #1C1C1E;display:flex;gap:10px}
 
 /* welcome */
-.wstrips{position:absolute;left:0;top:0;width:390px;height:560px;display:flex;flex-direction:column;background:#000}
-.strip{position:relative;display:block;height:94px;overflow:hidden;flex:none}
+.wstrips{position:absolute;left:0;top:0;width:100%;height:calc(100% - 290px);display:flex;flex-direction:column;background:#000}
+.strip{position:relative;display:block;flex:1;min-height:0;overflow:hidden}
 .strip img{width:100%;height:100%;object-fit:cover}
 .wlogo{position:absolute;left:0;right:0;top:0;height:170px;background:linear-gradient(rgba(0,0,0,.78),rgba(0,0,0,0));display:flex;justify-content:center;align-items:flex-start;padding-top:60px;gap:10px;pointer-events:none}
 .wlogo .box{width:46px;height:46px;border:3px solid #fff;border-radius:13px;display:flex;align-items:center;justify-content:center}
 .wlogo .txt{font-size:30px;font-weight:800;letter-spacing:-.5px;line-height:.95}
-.wsheet{position:absolute;left:0;right:0;bottom:0;height:320px;background:#1C1C1E;border-radius:30px 30px 0 0;padding:28px 24px 40px;display:flex;flex-direction:column;gap:14px}
+.wsheet{position:absolute;left:0;right:0;bottom:0;min-height:320px;padding-bottom:calc(28px + var(--bot)) !important;background:#1C1C1E;border-radius:30px 30px 0 0;padding:28px 24px 40px;display:flex;flex-direction:column;gap:14px}
 .wsheet h1{margin:0;font-size:26px;font-weight:800;line-height:1.3;text-align:center}
 .wsheet p{margin:0;font-size:15px;line-height:1.6;color:#AEAEB2;text-align:center}
 .dot{height:10px;border-radius:5px;transition:width .25s,background .25s}
@@ -116,7 +116,7 @@ textarea.field{height:auto;padding:14px 18px;line-height:1.6;resize:none;font-si
 .hero{position:relative;flex:none}
 .hero>img,.hero>.art{width:100%;height:100%;object-fit:cover}
 .art{display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.92)}
-.herobar{position:absolute;left:16px;right:16px;top:48px;display:flex;justify-content:space-between}
+.herobar{position:absolute;left:16px;right:16px;top:var(--top);display:flex;justify-content:space-between}
 .herofade{position:absolute;left:0;right:0;bottom:0;padding:50px 20px 16px;background:linear-gradient(rgba(0,0,0,0),#000);display:flex;flex-direction:column;gap:4px}
 .linkcard{display:flex;align-items:center;gap:14px;background:#1C1C1E;border-radius:24px;padding:12px 16px 12px 12px;text-align:left;width:100%}
 .thumb{width:56px;height:56px;flex:none;border-radius:16px;overflow:hidden;background:#2C2C2E}
@@ -153,7 +153,7 @@ textarea.field{height:auto;padding:14px 18px;line-height:1.6;resize:none;font-si
 .addcart.in{background:linear-gradient(135deg,#F04BB8,#FF7A3D)}
 
 /* nav */
-.nav{position:absolute;left:16px;right:16px;bottom:24px;height:72px;border-radius:36px;background:rgba(36,36,38,.97);border:1px solid #3A3A3C;display:flex;align-items:center;justify-content:space-between;padding:0 6px;z-index:5}
+.nav{position:absolute;left:16px;right:16px;bottom:calc(16px + var(--bot));height:72px;border-radius:36px;background:rgba(36,36,38,.97);border:1px solid #3A3A3C;display:flex;align-items:center;justify-content:space-between;padding:0 6px;z-index:5}
 .nb{position:relative;width:64px;height:58px;border-radius:29px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:12px;font-weight:700;transition:background .2s}
 .nb.on{background:#3A3A3C;color:#3AA8F0}
 .nplus{width:58px;height:58px;border-radius:29px;background:#0077C8;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,119,200,.45)}
@@ -175,7 +175,7 @@ textarea.field{height:auto;padding:14px 18px;line-height:1.6;resize:none;font-si
 .step{width:36px;height:36px;flex:none;border-radius:18px;background:#2C2C2E;font-size:20px;display:flex;align-items:center;justify-content:center}
 .day{height:64px;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:#1C1C1E;border:2px solid #2C2C2E;transition:background .2s}
 .day.on{background:#0B2A40;border-color:#3AA8F0}
-.toastbox{position:absolute;left:50%;top:54px;transform:translateX(-50%);max-width:350px;padding:12px 18px;border-radius:24px;background:rgba(44,44,46,.97);border:1px solid #48484A;font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px;white-space:nowrap;z-index:20;pointer-events:none}
+.toastbox{position:absolute;left:50%;top:calc(var(--top) + 4px);transform:translateX(-50%);max-width:350px;padding:12px 18px;border-radius:24px;background:rgba(44,44,46,.97);border:1px solid #48484A;font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px;white-space:nowrap;z-index:20;pointer-events:none}
 .toastbox .c{width:22px;height:22px;flex:none;border-radius:11px;background:linear-gradient(135deg,#F04BB8,#FF7A3D);display:flex;align-items:center;justify-content:center}
 .conf{position:absolute;left:50%;top:50%;width:10px;height:10px;border-radius:5px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -255,6 +255,65 @@ img{transition:opacity .25s ease}
 @keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(240,75,184,0)}50%{box-shadow:0 0 0 4px rgba(240,75,184,.75)}}
 @keyframes toastIn{from{transform:translate(-50%,-24px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
 @keyframes burst{from{transform:translate(-50%,-50%) scale(0);opacity:1}to{transform:translate(var(--x),var(--y)) scale(1);opacity:0}}
+
+
+.langbtn{height:40px;padding:0 14px;border-radius:20px;border:1px solid #3A3A3C;background:rgba(28,28,30,.9);font-size:13px;font-weight:800;display:inline-flex;align-items:center;gap:6px;color:#8E8E93;flex:none}
+.langbtn span.on{color:#fff}.langbtn i{font-style:normal;color:#48484A}
+.nlangwrap,.tabonly{display:none}
+@media (min-width:640px) and (max-width:1023px){.tabonly{display:inline-flex}}
+@media (min-width:1024px){.nlangwrap{display:flex;margin-top:auto;padding:0 4px}.nlangwrap .langbtn{width:100%;justify-content:center;height:44px;border-radius:14px}}
+/* responsive: nav labels hidden on phone */
+.nlogo,.nlbl{display:none}
+@media (hover:hover){.tile:hover>img,.mcard:hover>img{transform:scale(1.04)}.tile>img,.mcard>img{transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .25s}}
+/* tablet */
+@media (min-width:640px){
+  .scr{padding-left:max(0px,calc((100% - 680px)/2));padding-right:max(0px,calc((100% - 680px)/2))}
+  .nav{left:50%;right:auto;width:480px;margin-left:-240px}
+  .sheetbox{left:50%;right:auto;width:600px;margin-left:-300px}
+  .dlg{left:50%;right:auto;width:400px;margin-left:-200px}
+  .wsheet{left:50%;right:auto;width:560px;margin-left:-280px;bottom:32px;border-radius:30px;padding-bottom:28px !important}
+  .wstrips{height:100%}
+  .strip img,.mcard>img{position:absolute;top:0;left:-22%;width:122%;height:100%}
+  .mcard,.swipe,.mlock{height:112px}
+  .tiles{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .goods{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .hero{border-radius:0 0 28px 28px;overflow:hidden}
+}
+/* desktop: sidebar + wide content */
+@media (min-width:1024px){
+  :root{--top:40px}
+  #stage.side>.scrwrap{left:264px}
+  #stage.side .toastbox{left:calc(50% + 132px)}
+  .scr{padding-left:max(32px,calc((100% - 1040px)/2));padding-right:max(32px,calc((100% - 1040px)/2))}
+  .scroll{scrollbar-width:thin;scrollbar-color:#3A3A3C transparent}
+  .scroll::-webkit-scrollbar{display:block;width:8px}.scroll::-webkit-scrollbar-thumb{background:#3A3A3C;border-radius:4px}
+  .nav{left:24px;top:24px;bottom:24px;right:auto;width:216px;height:auto;margin:0;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:6px;padding:24px 12px;border-radius:28px;background:#111113;border-color:#2C2C2E}
+  .nlogo{display:flex;align-items:center;gap:10px;order:-2;padding:0 10px 22px;font-size:18px;font-weight:800;letter-spacing:.5px}
+  .nlogo .box{width:32px;height:32px;border:2.5px solid #fff;border-radius:9px;display:flex;align-items:center;justify-content:center}
+  .nb{width:auto;height:52px;flex-direction:row;justify-content:flex-start;gap:14px;padding:0 16px;border-radius:16px;font-size:15px}
+  .nb:hover{background:#1C1C1E}.nb.on:hover{background:#3A3A3C}
+  .nplus{order:-1;width:auto;height:52px;border-radius:26px;gap:8px;margin-bottom:14px;box-shadow:none}
+  .nlbl{display:inline;font-size:15px;font-weight:700}
+  .badge{top:50%;margin-top:-9px;right:14px}
+  .hero{border-radius:28px;overflow:hidden;margin-top:24px}
+  .hero[style*="340px"]{height:420px !important}
+  .herobar{top:20px;left:20px;right:20px}
+  #stage.side>.scrwrap[data-k="scr-main"]>.scr{padding-left:max(32px,calc((100% - 800px)/2));padding-right:max(32px,calc((100% - 800px)/2))}
+  .mcard,.swipe,.mlock{height:144px}
+  .mcard>img{position:absolute;top:0;left:-22%;width:122%;height:100%}
+  .rowalt{width:84px}.rowalt .a{font-size:20px}
+  .hero{margin-left:16px;margin-right:16px}
+  .mcap{font-size:17px;padding:30px 18px 14px}
+  .tiles{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+  .tile{height:220px}
+  .goods{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+  .good .ph{height:180px}
+  .footer{border-top:none;padding:16px 16px 28px}
+  .footer .btn{max-width:360px}
+  .sheetbox{width:620px;margin-left:-310px;bottom:4vh;top:auto;border-radius:28px;max-height:92vh}
+  .sheetbox[style*="top:"]{top:4vh !important}
+  .wsheet{bottom:48px}
+}
 @media (prefers-reduced-motion:reduce){.push,.back-in,.fade,.sheet,.dim,.pop,.rise,.rise2,.isnew,.toast,.bump,.burst,.enter,.out-push,.out-back,.out-fade,.toast-out{animation:none}.tap,.swipe .mcard,.bar>i{transition:none}}
 </style>
 </head>
@@ -528,22 +587,22 @@ async function genLong() {
   const c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d');
   x.fillStyle = '#000'; x.fillRect(0, 0, W, H);
   logo(x, 64, 70, 56); x.fillStyle = '#fff'; x.font = `800 30px ${FONT}`; x.fillText('MILESTONE', 138, 110);
-  x.font = `800 84px ${FONT}`; x.fillText('我的海拔线', 64, 236);
-  x.font = `500 32px ${FONT}`; x.fillStyle = '#AEAEB2'; x.fillText(`${op.length} 个里程碑 · ${new Set(op.map(m => m.sp)).size} 种运动`, 64, 304);
+  x.font = `800 84px ${FONT}`; x.fillText(T('我的海拔线'), 64, 236);
+  x.font = `500 32px ${FONT}`; x.fillStyle = '#AEAEB2'; x.fillText(T(`${op.length} 个里程碑 · ${new Set(op.map(m => m.sp)).size} 种运动`), 64, 304);
   const alts = op.map(m => m.alt); const hi = Math.max(...alts), lo = Math.min(...alts);
   x.textAlign = 'right'; x.font = `800 92px ${FONT}`; x.fillStyle = grad(x, W - 420, W - 64); x.fillText((hi - lo) + 'm', W - 64, 236);
-  x.font = `500 30px ${FONT}`; x.fillStyle = '#AEAEB2'; x.fillText('垂直跨度', W - 64, 304); x.textAlign = 'left';
+  x.font = `500 30px ${FONT}`; x.fillStyle = '#AEAEB2'; x.fillText(T('垂直跨度'), W - 64, 304); x.textAlign = 'left';
   const imgs = await Promise.all(op.map(m => loadImg(m.img).catch(() => null)));
   op.forEach((m, i) => {
     const y = HEAD + i * ROW;
     if (imgs[i]) cover(x, imgs[i], 0, y, W, ROW - 6, m.pos); else { x.fillStyle = '#1C1C1E'; x.fillRect(0, y, W, ROW - 6); }
     const g = x.createLinearGradient(0, y + ROW - 170, 0, y + ROW); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,.75)'); x.fillStyle = g; x.fillRect(0, y + ROW - 170, W, 170);
     pill(x, fmt(m.alt), y + (ROW - 92) / 2 - 3, 46);
-    x.textAlign = 'right'; x.fillStyle = '#fff'; x.font = `700 38px ${FONT}`; x.fillText(m.title, W - 44, y + ROW - 50); x.textAlign = 'left';
+    x.textAlign = 'right'; x.fillStyle = '#fff'; x.font = `700 38px ${FONT}`; x.fillText(T(m.title), W - 44, y + ROW - 50); x.textAlign = 'left';
   });
   const fy = HEAD + op.length * ROW;
-  x.font = `800 46px ${FONT}`; x.fillStyle = '#fff'; x.fillText(`从 ${fmt(lo)} 到 ${fmt(hi)}`, 64, fy + 110);
-  x.font = `500 30px ${FONT}`; x.fillStyle = '#8E8E93'; x.fillText('我到过的每一个高度 · Milestone', 64, fy + 166);
+  x.font = `800 46px ${FONT}`; x.fillStyle = '#fff'; x.fillText(T(`从 ${fmt(lo)} 到 ${fmt(hi)}`), 64, fy + 110);
+  x.font = `500 30px ${FONT}`; x.fillStyle = '#8E8E93'; x.fillText(T('我到过的每一个高度 · Milestone'), 64, fy + 166);
   x.textAlign = 'right'; x.fillText(today.replace(/-/g, '.'), W - 64, fy + 166); x.textAlign = 'left';
   const blob = await toBlob(c); return { blob, url: URL.createObjectURL(blob), w: W, h: H };
 }
@@ -556,15 +615,15 @@ async function genCard(mid) {
   const img = await loadImg(m.img).catch(() => null); if (img) cover(x, img, 0, 0, W, PH, m.pos);
   const g = x.createLinearGradient(0, PH - 300, 0, PH); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,1)'); x.fillStyle = g; x.fillRect(0, PH - 300, W, 300);
   pill(x, fmt(m.alt), PH - 220, 60);
-  x.fillStyle = '#fff'; x.font = `800 76px ${FONT}`; x.fillText(m.title, 64, PH + 110);
-  x.font = `500 32px ${FONT}`; x.fillStyle = '#AEAEB2'; x.fillText([m.zone, m.date ? m.date.replace(/-/g, '.') : null, sp.name].filter(Boolean).join(' · '), 64, PH + 172);
-  const tags = (m.tags || []).slice(0, 4).map(t => '#' + t).join('  ');
+  x.fillStyle = '#fff'; x.font = `800 76px ${FONT}`; x.fillText(T(m.title), 64, PH + 110);
+  x.font = `500 32px ${FONT}`; x.fillStyle = '#AEAEB2'; x.fillText([T(m.zone), m.date ? m.date.replace(/-/g, '.') : null, T(sp.name)].filter(Boolean).join(' · '), 64, PH + 172);
+  const tags = (m.tags || []).slice(0, 4).map(t => '#' + T(t)).join('  ');
   if (tags) { x.font = `700 32px ${FONT}`; x.fillStyle = grad(x, 64, 640); x.fillText(tags, 64, PH + 236); }
   logo(x, 64, H - 112, 48); x.fillStyle = '#fff'; x.font = `800 28px ${FONT}`; x.fillText('MILESTONE', 128, H - 78);
-  x.textAlign = 'right'; x.fillStyle = '#8E8E93'; x.font = `500 28px ${FONT}`; x.fillText('我到过的每一个高度', W - 64, H - 78); x.textAlign = 'left';
+  x.textAlign = 'right'; x.fillStyle = '#8E8E93'; x.font = `500 28px ${FONT}`; x.fillText(T('我到过的每一个高度'), W - 64, H - 78); x.textAlign = 'left';
   const blob = await toBlob(c); return { blob, url: URL.createObjectURL(blob), w: W, h: H };
 }
-const shKey = () => S.share.mode === 'long' ? 'long' + S.extras.length : 'card' + S.share.mid;
+const shKey = () => LANG + (S.share.mode === 'long' ? 'long' + S.extras.length : 'card' + S.share.mid);
 function ensureShare() {
   const key = shKey(); const sh = S.share;
   if (sh.items[key] || sh.busy[key]) return;
@@ -579,7 +638,7 @@ function openShare(mode, mid) {
 }
 async function saveShare() {
   const it = S.share.items[shKey()]; if (!it) return;
-  const name = S.share.mode === 'long' ? 'milestone-海拔长图.jpg' : 'milestone-' + (all().find(z => z.id === S.share.mid) || {}).alt + 'm.jpg';
+  const name = S.share.mode === 'long' ? T('milestone-海拔长图.jpg') : 'milestone-' + (all().find(z => z.id === S.share.mid) || {}).alt + 'm.jpg';
   if (window.claude && typeof window.claude.use === 'function') {
     let dl = null; try { dl = await window.claude.use('downloads'); } catch (e) {}
     if (dl) {
@@ -618,7 +677,7 @@ const cartCount = () => Object.keys(S.cart).filter(k => S.cart[k]).length;
 const zoneOf = a => a > 3000 ? '高原' : a > 500 ? '山地' : a > 0 ? '地面' : a === 0 ? '海面' : a > -30 ? '水下' : '深水';
 const groupOf = k => { const c = spOf(k).cat; return c === '空中' ? '天空' : c === '雪山' ? '雪山' : c === '山地' ? '山地' : (c === '水上' || c === '水下') ? '水域' : '其他'; };
 const art = (x, s) => x.img ? `<img src="${x.img}" alt=""${x.pos ? ` style="object-position:${x.pos}"` : ''}>` : `<span class="art" style="background:${x.grad}">${sv(P[x.ic], s, 1.4)}</span>`;
-const patch = (k, txt) => stage.querySelectorAll(`[data-b="${k}"]`).forEach(e => { e.textContent = txt; });
+const patch = (k, txt) => stage.querySelectorAll(`[data-b="${k}"]`).forEach(e => { e.textContent = T(txt); });
 
 const buzz = (ms) => { try { if (navigator.vibrate) navigator.vibrate(ms || 8); } catch (e) {} };
 const REDUCED = (() => { try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } })();
@@ -711,6 +770,88 @@ function retire(el, cls, ms) {
   setTimeout(() => el.remove(), ms);
 }
 
+/* ---------- 中英文切换 ---------- */
+const LANG_KEY = 'milestone.lang';
+let LANG = (() => { try { const v = localStorage.getItem(LANG_KEY); if (v === 'zh' || v === 'en') return v; } catch (e) {} return 'zh'; })();
+const EN = {"中": "中", "记录里程碑": "New milestone", "杰": "J", "米": "M", "上下滑动查看完整长图": "Scroll to see the full image", "高空跳伞": "Skydiving", "空中": "Air", "入门友好": "Beginner-friendly", "半天": "Half a day", "和教练绑在一起从三四千米的高空跳出飞机，自由落体约一分钟后开伞，再滑翔几分钟落地。第一次不需要任何基础。": "Strapped to an instructor, you jump from 3,000–4,000 m, free-fall for about a minute, then glide down under the canopy for a few minutes. No experience needed for your first jump.", "双人体验": "Tandem", "双人跳伞": "Tandem skydive", "教练全程负责开伞和降落，你只需要按要求摆好姿势。": "Your instructor handles the canopy and landing. You just hold the body position they teach you.", "单人课程": "Solo course", "单人跳伞课程（AFF）": "Solo skydiving course (AFF)", "理论学习加多次带飞，逐步学会自己开伞和控制降落。": "Ground school plus guided jumps until you can deploy and land on your own.", "执照跳伞": "Licensed", "持证自由跳": "Licensed free-fall", "持续练习": "Ongoing practice", "按次计费": "Pay per session", "拿到执照后可以独立跳伞，练习编队和花样动作。": "Once licensed, you can jump solo and practise formations and tricks.", "选正规基地": "Pick a certified drop zone", "确认跳伞基地和教练有相关资质。": "Check that the drop zone and instructors are properly certified.", "听从出舱姿势": "Follow the exit position", "出舱时挺胯抬头、双腿后弯。": "Hips forward, head up, legs bent back as you leave the plane.", "身体条件先确认": "Check your health first", "有心脏病、高血压等情况先咨询医生。": "Talk to a doctor first if you have heart problems or high blood pressure.", "滑翔伞": "Paragliding", "半小时": "30 minutes", "背着伞翼从山坡起飞，借上升气流在空中滑翔。体验飞行由教练带飞，自己飞需要系统培训。": "Launch from a hillside under a wing and ride rising air. On a tandem flight the pilot flies for you; flying solo takes proper training.", "双人带飞": "Tandem flight", "教练负责操控，你坐在前面看风景。": "The pilot steers while you sit in front and enjoy the view.", "初级课程": "Beginner course", "初级飞行员课程": "Beginner pilot course", "地面操伞练习后，开始低空单飞。": "Ground handling first, then low solo flights.", "高空独飞": "Solo high flights", "学习热气流和留空技巧，飞得更高更久。": "Learn thermals and soaring to fly higher and longer.", "只在正规基地飞": "Fly only at proper sites", "选择有资质的俱乐部和教练。": "Choose a certified club and instructor.", "看天气": "Watch the weather", "风大、雷雨天不飞。": "No flying in strong wind or thunderstorms.", "起飞前检查": "Check before launch", "检查伞绳、背带和头盔。": "Check lines, harness and helmet.", "热气球": "Hot-air balloon", "零门槛": "No experience needed", "清晨气流最稳的时候升空，随风飘行约一小时。乘客不需要任何技能，是最轻松的空中里程碑。": "Lift off in the calm early-morning air and drift with the wind for about an hour. Passengers need no skills — the easiest sky milestone there is.", "系留体验": "Tethered ride", "系留热气球": "Tethered balloon ride", "约半小时": "About 30 minutes", "用绳子固定在地面，升到几十米高看风景。": "Tied to the ground, the balloon rises a few dozen metres for the view.", "自由飞行": "Free flight", "日出时升空，随风飘行约一小时。": "Lift off at sunrise and drift for about an hour.", "驾驶员": "Pilot", "热气球驾驶员培训": "Balloon pilot training", "需专业培训": "Professional training", "咨询机构": "Ask the provider", "学习气象、导航和操控，考取驾驶资格。": "Learn weather, navigation and control to earn a pilot licence.", "留出备用日": "Keep a backup day", "天气不好会临时取消。": "Flights get cancelled when the weather turns.", "起降听指令": "Follow landing instructions", "降落时屈膝、抓牢扶手。": "Bend your knees and hold on tight when landing.", "穿得暖": "Dress warm", "清晨高空很冷，穿平底鞋和外套。": "Dawn is cold up high — wear flat shoes and a jacket.", "高山滑雪": "Alpine skiing", "雪山": "Snow", "需要练习": "Takes practice", "双板滑雪比单板更容易站稳，适合第一次上雪场。先在初级道学会控速和转弯，再挑战更陡的雪道。": "Two skis are easier to balance on than a snowboard, so skiing suits a first day on snow. Learn speed control and turns on green runs before tackling steeper slopes.", "初级道": "Green runs", "初级道入门": "Green-run basics", "学会犁式刹车和基本转弯。": "Learn the snowplough stop and basic turns.", "中级道": "Blue runs", "中级道平行转弯": "Parallel turns on blue runs", "双板并拢转弯，开始坐缆车上山。": "Turn with skis together and start riding the lifts.", "高级道": "Black runs", "一个雪季": "One season", "按课时": "Per lesson", "更陡的坡和更快的速度。": "Steeper slopes and higher speed.", "头盔护具必戴": "Always wear a helmet and pads", "头盔和护具能挡住大部分新手受伤。": "A helmet and pads prevent most beginner injuries.", "先学刹车": "Learn to stop first", "先学会犁式刹车再去更陡的坡。": "Master the snowplough stop before steeper slopes.", "别停在雪道中间": "Don't stop mid-slope", "停下时移到雪道边缘。": "Move to the side of the run when you stop.", "单板滑雪": "Snowboarding", "先在初级道学会刹车、换刃和摔倒，再一条道一条道往上挑战。大多数人第一天以摔为主，第三天就能连起来滑。": "Learn to stop, switch edges and fall on the green runs, then work your way up run by run. Most people spend day one falling and link turns by day three.", "绿道": "Green", "学站立、推坡、落叶飘，能控制速度停下来。": "Learn to stand, side-slip and falling-leaf until you can control speed and stop.", "蓝道": "Blue", "连续换刃转弯，开始自己坐缆车上山。": "Linked edge-to-edge turns; start riding lifts on your own.", "红/黑道": "Red / Black", "一个雪季以上": "A season or more", "更陡的坡和更快的速度，练习刻滑。": "Steeper slopes and higher speed; practise carving.", "头盔、护臀、护腕最重要。": "Helmet, butt pads and wrist guards matter most.", "先学会摔": "Learn to fall", "摔倒时握拳、屈膝往后坐，不要用手撑地。": "Make fists, bend your knees and sit back — never catch yourself with your hands.", "留意上方": "Watch uphill", "停下时移到边缘，留意上方的人。": "Move to the edge when you stop and watch for riders above.", "山地徒步": "Mountain hiking", "山地": "Mountain", "几乎免费": "Almost free", "从城市周边的一日线开始，慢慢挑战更高、更长的路线。海拔越高，节奏越要慢。": "Start with day hikes near the city, then build up to higher and longer routes. The higher you go, the slower you should climb.", "一日线": "Day hike", "城郊一日线": "Day hike near the city", "免费 / 领队 ¥100 起": "Free / guided from ¥100", "有成熟步道，适合第一次徒步。": "Well-marked trails, perfect for a first hike.", "高山草甸": "Alpine meadow", "温差变大，要带保暖层和防雨层。": "Wider temperature swings — bring warm and waterproof layers.", "多日重装": "Multi-day trek", "多日重装徒步": "Multi-day backpacking trek", "背帐篷和炉具，学习营地和路线规划。": "Carry a tent and stove; learn campcraft and route planning.", "结伴并留行程": "Go with others, share your plan", "把路线和返回时间告诉家人朋友。": "Tell family or friends your route and return time.", "海拔慢慢升": "Ascend slowly", "3000 米以上头痛恶心就停下或下撤。": "Above 3,000 m, stop or descend if you get a headache or nausea.", "带足水和保暖层": "Bring water and warm layers", "山上天气变化快，宁可多带一件。": "Mountain weather changes fast — take the extra layer.", "登山": "Mountaineering", "需要训练": "Needs training", "攀登雪山需要冰镐和冰爪技术。入门一般从技术难度低的 5000 米级雪山开始，跟随有资质的向导。": "Climbing snow peaks takes ice-axe and crampon skills. Most people start on a technically easy 5,000 m peak with a certified guide.", "技术培训": "Skills course", "雪山技术培训": "Snow and ice skills course", "学习冰镐制动、冰爪行走和结组。": "Learn ice-axe arrest, crampon walking and roped travel.", "5000m 级": "5000m peaks", "入门级雪山": "Entry-level snow peak", "技术难度低的雪山，向导带队冲顶。": "A technically easy peak; the guide leads the summit push.", "高海拔雪山": "High-altitude peaks", "7 天以上": "7+ days", "需要更长的适应期和更多技术。": "Needs longer acclimatisation and more technique.", "提前练体能": "Train early", "出发前几个月开始负重爬升训练。": "Start weighted climbing training months before the trip.", "跟随向导": "Go with a guide", "选择有资质的向导和协作团队。": "Choose a certified guide and support team.", "按时下撤": "Turn back on time", "到了关门时间没登顶就撤，不硬冲。": "If you haven't summited by the turnaround time, descend — don't push it.", "越野跑": "Trail running", "在山路和土路上跑步，比路跑更考验下坡技巧和补给。可以从 10 公里左右的短距离比赛入门。": "Running on mountain paths and dirt trails tests your downhill skills and fuelling more than road running. Start with a short race of around 10 km.", "10 公里入门": "10K starter", "爬升不大，适合有跑步基础的人。": "Modest climbing; good if you already run.", "半程": "Half", "半程越野": "Half trail race", "更长的爬升和下坡，开始学补给。": "Longer climbs and descents; start learning to fuel.", "全程以上": "Marathon+", "全程 / 百公里": "Marathon / 100K", "一天以上": "More than a day", "需要系统训练和夜跑能力。": "Needs structured training and night-running skills.", "鞋要抓地": "Grippy shoes", "穿越野跑鞋，比路跑鞋更防滑。": "Wear trail shoes — they grip far better than road shoes.", "带水和能量": "Carry water and fuel", "准备水壶和能量胶。": "Bring a soft flask and energy gels.", "下坡小步快频": "Short quick steps downhill", "保护膝盖，不要大步冲下坡。": "Protect your knees; don't bound down the slope.", "露营": "Camping", "从有水有电的营地开始，学会搭帐篷和保暖，再尝试背着装备徒步露营。": "Start at campsites with water and power, learn to pitch a tent and stay warm, then try backpacking with all your gear.", "精致露营": "Glamping", "营地精致露营": "Campsite glamping", "营地提供帐篷和床，带上自己就行。": "The site provides the tent and bed — just bring yourself.", "自驾露营": "Car camping", "自驾营地露营": "Drive-in campsite", "周末": "A weekend", "自己搭帐篷、做饭，体验完整露营。": "Pitch your own tent and cook: the full camping experience.", "徒步露营": "Backpacking", "徒步重装露营": "Backpacking camp", "多日": "Multi-day", "装备为主": "Mostly gear", "背着全部装备走进山里扎营。": "Hike into the mountains carrying everything you need.", "在允许的地方扎营": "Camp only where allowed", "只在营地或允许扎营的区域。": "Only at campsites or permitted areas.", "带走垃圾": "Pack out your trash", "无痕山林，所有垃圾都带下山。": "Leave no trace — carry all rubbish down.", "睡袋要够暖": "Bring a warm enough bag", "选比当晚最低气温更低一档的睡袋。": "Pick a sleeping bag rated a step below the night's low.", "骑行": "Cycling", "从城市绿道和环湖路线开始，慢慢加距离和爬坡。山地车还可以去越野路线。": "Start on city greenways and lakeside loops, then add distance and climbing. Mountain bikes can go off-road too.", "城市骑行": "City rides", "城市绿道": "City greenways", "平路为主，熟悉变速和刹车。": "Mostly flat — get used to gears and brakes.", "长距离": "Long distance", "环湖 / 公路长途": "Lake loops / road touring", "一天": "One day", "自费": "Self-funded", "学会补给和长时间骑行的节奏。": "Learn to fuel and pace long rides.", "爬坡越野": "Climbs & off-road", "山地越野 / 爬坡": "Mountain trails / climbs", "更陡的坡和更复杂的路面。": "Steeper hills and rougher surfaces.", "戴头盔守交规": "Helmet on, follow traffic rules", "靠右骑行，注意路口。": "Keep right and take care at junctions.", "出发前检查": "Check before you go", "检查刹车、胎压和链条。": "Check brakes, tyre pressure and chain.", "夜骑开灯": "Lights on at night", "前后灯都要开。": "Use both front and rear lights.", "攀岩": "Climbing", "不用绳子在不高的岩壁上完成线路，下面有厚垫子。岩馆租好鞋就能开始，是最容易入门的户外运动之一。": "Climb short routes on low walls without a rope, with thick mats below. Rent shoes at a gym and you're ready — one of the easiest outdoor sports to start.", "抱石入门": "Bouldering basics", "学会用脚发力、三点固定。": "Learn to push with your feet and keep three points of contact.", "顶绳": "Top rope", "顶绳攀岩": "Top-rope climbing", "1 次课": "One lesson", "学习系绳结和保护，爬更高的墙。": "Learn to tie in and belay, and climb taller walls.", "户外岩壁": "Outdoor crag", "跟队出发": "With a group", "真实岩石，先跟有经验的人一起。": "Real rock — go with experienced climbers first.", "学会安全落地": "Learn to fall safely", "屈膝落地、顺势往后倒，不要伸手撑。": "Land with bent knees and roll back — don't reach out with your hands.", "先热身手指": "Warm up your fingers", "手指肌腱容易拉伤。": "Finger tendons strain easily.", "户外先跟老手": "Go outdoors with a pro", "户外岩壁的保护和撤退要有人带。": "Outdoor protection and retreats need an experienced lead.", "冲浪": "Surfing", "水上": "Water", "水下": "Underwater", "在海浪推动下站上冲浪板。新手从软板和小浪开始，大多数人第一节课就能短暂站起来。": "Stand up on a board pushed by the waves. Beginners start on soft boards in small surf, and most stand briefly in their first lesson.", "体验课": "Intro lesson", "冲浪体验课": "Intro surf lesson", "在白浪区学趴板、起乘。": "Learn to paddle and pop up in the whitewater.", "进阶": "Progression", "进阶课程": "Progression course", "学会自己划水追浪。": "Learn to paddle into waves on your own.", "绿浪": "Green waves", "绿浪 / 硬板": "Green waves / hard board", "在未破碎的浪上滑行转弯。": "Ride and turn on unbroken waves.", "选有救生员的海滩": "Pick a lifeguarded beach", "新手不去偏僻海域。": "Beginners stay away from remote spots.", "被浪打下护头": "Cover your head when wiped out", "落水时双手护住头部。": "Protect your head with both arms when you fall.", "了解离岸流": "Know about rip currents", "被冲出去时平行岸边游。": "If you're pulled out, swim parallel to the shore.", "桨板": "Paddleboarding", "站在宽大的板上划桨，平静的湖面就能玩。平衡感一般的人也能很快上手。": "Stand on a wide board and paddle on any calm lake. Even people with average balance pick it up quickly.", "体验": "Taster", "桨板体验": "SUP taster", "跪姿起步，再慢慢站起来划。": "Start on your knees, then slowly stand up and paddle.", "巡游": "Touring", "湖面长距离巡游": "Long lake tours", "学会直线划行和转向。": "Learn to paddle straight and turn.", "浪区": "Surf zone", "浪区 / 激流": "Surf / whitewater", "在海浪或激流里保持平衡。": "Keep your balance in waves or rapids.", "穿救生衣系脚绳": "Wear a life jacket and leash", "落水时板不会漂走。": "Your board won't drift away if you fall in.", "留意风向": "Watch the wind", "别被风吹离岸边。": "Don't get blown away from shore.", "做好防晒": "Use sun protection", "水面反光，晒伤很快。": "The water reflects sun — you burn fast.", "皮划艇": "Kayaking", "坐在艇里用双叶桨划行，可以在湖泊、海湾或河流里玩。入门从静水开始。": "Sit in the boat and paddle with a double-bladed paddle on lakes, bays or rivers. Start on flat water.", "静水": "Flat water", "静水体验": "Flat-water taster", "学会前进、转向和停船。": "Learn to go forward, turn and stop.", "海湾巡游": "Bay touring", "海上 / 湖泊巡游": "Sea / lake touring", "跟队划更远的距离。": "Paddle longer distances with a group.", "激流": "Whitewater", "激流皮划艇": "Whitewater kayaking", "需培训": "Training required", "学会翻滚自救后再进激流。": "Learn to roll and self-rescue before whitewater.", "全程穿救生衣": "Always wear a life jacket", "会游泳也要穿。": "Even if you can swim.", "学会翻船自救": "Learn capsize recovery", "出发前练习一次落水上艇。": "Practise getting back in once before you go.", "结伴告知行程": "Go together, share your plan", "不独自划到远处。": "Don't paddle far out alone.", "浮潜": "Snorkeling", "戴面镜和呼吸管漂在水面看鱼，不需要证书。不太会游泳也可以穿救生衣玩。": "Float on the surface with a mask and snorkel and watch the fish — no certificate needed. Not a strong swimmer? Wear a life jacket.", "浅滩": "Shallows", "浅滩浮潜": "Shore snorkeling", "在海滩边的浅水区看鱼。": "See fish in the shallow water off the beach.", "出海": "Boat trip", "出海船潜浮潜": "Boat snorkeling trip", "坐船去珊瑚礁，看更多海洋生物。": "Take a boat out to the reef to see more marine life.", "自由潜": "Freediving", "进阶到自由潜": "Move on to freediving", "学会闭气下潜，离鱼群更近。": "Learn to hold your breath and dive down closer to the fish.", "穿浮潜背心": "Wear a snorkel vest", "漂在水面更省力也更安全。": "Floating takes less effort and is safer.", "不碰珊瑚": "Don't touch coral", "珊瑚很脆弱，也可能划伤你。": "Coral is fragile and can cut you.", "用环保防晒": "Use reef-safe sunscreen", "选珊瑚友好的防晒霜。": "Choose a coral-friendly sunscreen.", "水肺潜水": "Scuba diving", "需要培训": "Needs a course", "背上气瓶，用调节器在水下呼吸。休闲潜水一般在 18–30 米以内，第一次可以从教练陪同的体验潜水开始，不需要证书。": "Breathe underwater from a tank through a regulator. Recreational dives stay within 18–30 m, and your first can be a Discover Scuba dive with an instructor — no certificate needed.", "体验 -10m": "Try dive -10m", "体验潜水": "Discover Scuba", "不需要证书，教练全程陪同在浅水区下潜。": "No certificate needed; an instructor stays with you in shallow water.", "开放水域潜水员": "Open Water Diver", "理论 + 平静水域 + 4 次开放水域潜水，拿到证书后可以和潜伴自主潜水。": "Theory + confined water + 4 open-water dives. Once certified, you can dive with a buddy.", "进阶开放水域": "Advanced Open Water", "5 次专长潜水，包含深潜和水下导航。": "5 adventure dives, including deep diving and underwater navigation.", "持续做耳压平衡": "Equalise constantly", "下潜时每隔一两米就捏鼻轻轻鼓气。": "Pinch your nose and gently blow every metre or two on the way down.", "永远不要憋气": "Never hold your breath", "上升时保持正常呼吸，否则肺部可能受伤。": "Keep breathing normally on ascent, or you could injure your lungs.", "和潜伴一起": "Dive with a buddy", "下水前互相检查装备，水下保持在视线内。": "Check each other's gear before entering and stay within sight underwater.", "不背气瓶，一口气下潜。入门课会教放松呼吸、耳压平衡和安全救援，深度跟着课程一级一级加。": "No tank — one breath, one dive. The intro course teaches relaxed breathing, equalising and rescue, and depth grows level by level.", "体验 -5m": "Try -5m", "自由潜体验": "Freediving taster", "泳池里学放松呼吸和静态闭气。": "Learn relaxed breathing and static breath-holds in the pool.", "一级 -20m": "Level 1 -20m", "自由潜一级": "Freediver Level 1", "理论 + 泳池 + 开放水域，学会安全规则和基础救援。": "Theory + pool + open water; learn the safety rules and basic rescue.", "二级 -30m": "Level 2 -30m", "自由潜二级": "Freediver Level 2", "练习更高效的耳压平衡和下潜技巧。": "Practise more efficient equalising and diving technique.", "永远不独自下水": "Never dive alone", "必须有受过训练的潜伴在水面盯着你。": "A trained buddy must watch you from the surface.", "不要过度换气": "Don't hyperventilate", "下潜前大口快速呼吸可能让人在水下失去意识。": "Fast, deep breathing before a dive can make you black out underwater.", "出水先恢复呼吸": "Recovery breaths first", "浮出水面后先做几次恢复呼吸。": "Take a few recovery breaths as soon as you surface.", "洞穴探索": "Caving", "地下": "Underground", "需要向导": "Guide required", "在头灯照明下穿行天然溶洞。入门从开发过的景区溶洞和向导带队的轻探洞开始。": "Walk through natural limestone caves by headlamp. Start with show caves and guided easy caving.", "景区溶洞": "Show cave", "门票为主": "Mostly entry tickets", "有步道和照明，轻松参观。": "Paths and lighting make for an easy visit.", "轻探洞": "Easy caving", "向导轻探洞": "Guided easy caving", "戴头盔头灯，跟向导钻进未开发的洞段。": "Helmet and headlamp on, follow a guide into undeveloped passages.", "技术探洞": "Technical caving", "绳索技术探洞": "Rope-technique caving", "学习绳索上升下降，进入竖井。": "Learn to ascend and descend ropes and drop into shafts.", "必须跟向导": "Always go with a guide", "不独自进入未开发的洞穴。": "Never enter undeveloped caves alone.", "带备用光源": "Bring a backup light", "头灯之外再带一个手电。": "Carry a torch as well as your headlamp.", "雨季当心涨水": "Beware of floods in the rainy season", "下雨后洞内可能快速涨水。": "Caves can flood fast after rain.", "高原": "Plateau", "高海拔徒步": "High-altitude trek", "完成 3 次 3000m+ 徒步后解锁": "Unlocks after 3 hikes above 3000m", "天空": "Sky", "最高点": "Highest point", "第一次": "First time", "突破自我": "Pushed my limits", "从飞机舱门跳出去的那一秒，脑子一片空白。开伞之后才看清下面的海岸线。": "The second I jumped out of the plane door, my mind went blank. Only after the canopy opened did I see the coastline below.", "雪线以上": "Above the snowline", "和朋友": "With friends", "缆车坐到最高处，风很大，云就在脚下。": "Took the lift to the very top. Strong wind, clouds right under my feet.", "第一次坐上板": "First time on a board", "教练陪同": "With a coach", "摔了一整天，最后一趟终于连起来滑了一小段。": "Fell all day — on the last run I finally linked a few turns.", "独自完成": "Solo", "一个人走到垭口，背后是整面的岩壁。": "Walked alone to the pass, with a whole rock face behind me.", "缆车上山": "Lift ride up", "单板日": "Board day", "日出升空": "Sunrise lift-off", "日出": "Sunrise", "升空的时候太阳刚好出来，天上全是热气球。": "The sun came up just as we lifted off, and the sky was full of balloons.", "登顶": "Summit", "岩石山脊": "Rocky ridge", "室内": "Indoor", "抱石攀岩": "Bouldering", "岩馆": "Climbing gym", "其他": "Other", "海面": "Sea level", "海平面": "Sea level", "水域": "Water", "第一次看见鱼群": "First time seeing a school of fish", "把脸埋进水里的瞬间，鱼群就在眼前。": "The moment I put my face in the water, the fish were right there.", "耳压平衡做了好几次才下去，水下的声音只剩自己的呼吸。": "Took a few tries to equalise. Underwater, the only sound was my own breathing.", "最低点": "Lowest point", "深水": "Deep water", "完成自由潜入门课后解锁": "Unlocks after a freediving intro course", "日落": "Sunset", "放松": "Chilled", "跟团": "Group tour", "低容积面镜": "Low-volume mask", "自由潜下潜更省气": "Uses less air on freediving descents", "脚蹼面镜套装": "Fins & mask set", "浮潜入门一套搞定": "Everything you need to start snorkeling", "潜水电脑表": "Dive computer", "自动同步海拔/深度": "Auto-syncs altitude and depth", "伞绳手环": "Paracord bracelet", "应急求生 · 水陆两用": "Survival kit · land and water", "滑雪头盔": "Ski helmet", "入门第一件": "Your first piece of kit", "雪镜": "Goggles", "防雪盲": "Prevents snow blindness", "护臀护膝": "Butt & knee pads", "单板新手必备": "A must for new snowboarders", "速干排汗内衣": "Quick-dry base layer", "分层穿着底层": "The base of your layering", "徒步鞋": "Hiking boots", "防滑抓地": "Grippy and non-slip", "登山杖": "Trekking poles", "下坡保护膝盖": "Protect your knees downhill", "25L 背包": "25L daypack", "一日徒步": "For day hikes", "冲锋衣": "Shell jacket", "高海拔防风雨": "Wind and rain protection up high", "攀岩鞋": "Climbing shoes", "岩馆入门": "For your first gym sessions", "镁粉袋": "Chalk bag", "防手滑": "Stops slippery hands", "指力板": "Hangboard", "在家练习": "Train at home", "刷子": "Brush", "清理岩点": "Cleans the holds", "周六": "Sat", "周日": "Sun", "全部": "All", "你到过的每一个高度，都值得被记住": "Every height you've reached deserves to be remembered", "从高空跳伞到水下洞穴，自动拼出你的海拔长图。": "From skydiving to underwater caves, your altitude line builds itself.", "18 项户外运动，先学再出发": "18 outdoor sports — learn before you go", "每项都有进阶路线、安全须知和附近课程。": "Each has a progression path, safety tips and nearby courses.", "和朋友一起，把户外变成习惯": "Make the outdoors a habit, with friends", "每周出门记录，报名身边的入门活动。": "Log a trip each week and join beginner meetups near you.", "我的海拔线": "My altitude line", "垂直跨度": "Vertical range", "我到过的每一个高度 · Milestone": "Every height I've reached · Milestone", "我到过的每一个高度": "Every height I've reached", "图片生成失败，请再试一次": "Couldn't create the image. Please try again", "已保存到本地": "Saved to your device", "已取消保存": "Save cancelled", "上一次保存还没完成，请稍等": "Still saving the last one — one moment", "这里暂时不能保存，请在浏览器里打开": "Can't save here. Open this page in your browser", "已下载到本地": "Downloaded to your device", "下载失败，可以长按预览图保存": "Download failed — long-press the preview to save it", "微信好友": "WeChat", "已打开微信，选择好友后发送": "Opened WeChat — pick a friend to send it to", "朋友圈": "Moments", "已打开朋友圈，配上一句话就能发布": "Opened Moments — add a caption and post", "小红书": "Xiaohongshu", "已打开小红书，图片已放进新笔记": "Opened Xiaohongshu — the image is in a new note", "微博": "Weibo", "已打开微博，图片已添加": "Opened Weibo — image attached", "抖音": "Douyin", "已打开抖音，图片已添加为图文作品": "Opened Douyin — added as a photo post", "复制链接": "Copy link", "更多": "More", "已打开系统分享": "Opened the share sheet", "已删除": "Deleted", "里程碑": "Milestones", "地面": "Ground", "存储空间不足，最新的修改可能没保存": "Storage is full — your latest changes may not be saved", "下一张介绍": "Next intro slide", "免费开始记录": "Start recording — it's free", "登录": "Log in", "生成并分享海拔长图": "Create and share your altitude line", "添加新记录": "Add a new record", "个里程碑": "milestones", "种运动": "sports", "添加一个新的里程碑": "Add a new milestone", "编辑这个里程碑": "Edit this milestone", "分享这个里程碑": "Share this milestone", "探索这项运动": "Explore this sport", "在这一层再记一次": "Log this level again", "探索": "Explore", "搜索户外运动": "Search outdoor sports", "搜索运动，比如 潜水、滑雪": "Search sports, e.g. diving, skiing", "换个关键词，或者看看全部运动": "Try another keyword, or browse all sports", "清除搜索": "Clear search", "返回": "Back", "难度": "Difficulty", "参考花费": "Typical cost", "进阶路线": "Progression path", "出发前必须知道": "Before you go", "入门装备清单": "Starter gear", "玩过了，记一笔": "Done it — log it", "找附近课程": "Find nearby courses", "附近课程": "Nearby courses", "[当前城市] · 按距离排序": "[Your city] · sorted by distance", "[机构名称] · [距离]": "[Provider name] · [Distance]", "价格为参考价，以机构确认为准": "Prices are estimates; the provider confirms the final price", "阿杰": "Jay", "单板滑雪 · 第一次站起来": "Snowboarding · Stood up for the first time", "小米": "Mia", "浮潜 · 连续 4 周出门": "Snorkeling · Out 4 weeks in a row", "习惯": "Habits", "周连续出门": "week streak outdoors", "记录本周的户外": "Log this week's outing", "我的目标": "My goals", "本月户外 2 次": "2 outings this month", "今年尝试 5 项新运动": "Try 5 new sports this year", "岩馆抱石": "Bouldering at the gym", "一起去玩": "Join in", "周六 14:00 · 新手友好": "Sat 14:00 · Beginner-friendly", "岩馆抱石入门局": "Intro bouldering meetup", "朋友的新里程碑": "Friends' new milestones", "解锁了": "unlocked", "装备": "Gear", "为下一个里程碑准备": "Get ready for your next milestone", "自由潜入门套装 · 3 件": "Freediving starter kit · 3 items", "查看": "View", "刷新了你的最低点！": "New lowest point!", "刷新了你的最高点！": "New highest point!", "关闭": "Close", "本次照片": "This photo", "查看这个里程碑": "View this milestone", "生成海拔长图": "Create altitude line image", "回到海拔线": "Back to altitude line", "主导航": "Main navigation", "记录新里程碑": "Record a new milestone", "可从潜水电脑表同步": "Can sync from your dive computer", "可从手机气压计读取": "Can read from your phone's barometer", "根据定位估算": "Estimated from your location", "已保存修改": "Changes saved", "刚刚记录": "Just recorded", "关闭记录": "Close record", "取消": "Cancel", "保存": "Save", "已选择的照片": "Selected photo", "上传这一刻的照片": "Upload a photo of the moment", "从相册选择，或拍一张": "Choose from your library, or take one", "或从最近的照片中选": "Or pick a recent photo", "标题": "Title", "运动类型": "Sport", "海拔（米）": "Altitude (m)", "降低 1 米": "Down 1 m", "升高 1 米": "Up 1 m", "日期": "Date", "默认今天": "Defaults to today", "写点什么": "Notes", "那一刻的感受、和谁一起、遇到了什么……": "How it felt, who you were with, what you saw…", "标签": "Tags", "· 可多选": "· pick any", "自定义标签": "Custom tag", "添加": "Add", "同步到习惯页的伙伴动态": "Share to friends' feed on Habits", "删除这个里程碑": "Delete this milestone", "先输入标签内容": "Type a tag first", "关闭预约": "Close booking", "预约课程": "Book a course", "选择日期": "Choose a date", "人数": "People", "减少人数": "Fewer people", "增加人数": "More people", "提交后机构会在 24 小时内联系你确认时间，确认前不收费。": "The provider will contact you within 24 hours to confirm. You won't be charged until then.", "关闭分享": "Close share", "分享": "Share", "海拔长图": "Altitude line", "分享图预览": "Share image preview", "正在生成图片…": "Creating image…", "1080 × 1440 · 适合发朋友圈和小红书": "1080 × 1440 · great for Instagram and Xiaohongshu", "图片还在生成，请稍等": "Still creating the image — one moment", "链接已复制": "Link copied", "链接：": "Link:", "取消删除": "Keep it", "删除里程碑": "Delete milestone", "删除这个里程碑？": "Delete this milestone?", "删除": "Delete", "编辑": "Edit", "+1 次": "+1 visit", "编辑中": "Editing", "你的最高点": "Your highest point", "你的最低点": "Your lowest point", "保存修改": "Save changes", "保存到我的海拔线": "Save to my altitude line", "修改后在海拔线上的位置": "New position on your altitude line", "在你的海拔线上": "On your altitude line", "照片已上传": "Photo uploaded", "编辑里程碑": "Edit milestone", "已从购物车移除": "Removed from cart", "预约": "Book", "零基础可报": "No experience needed", "需完成上一步": "Finish the previous step first", "已经预约过了，机构会联系你": "Already booked — the provider will contact you", "本周已记录，连续纪录保住了！": "Logged this week — streak saved!", "这周再出门一次，就能保持连续纪录。": "Get out once more this week to keep your streak.", "报名成功": "You're in", "岩馆见": "see you at the gym", "已取消报名": "Sign-up cancelled", "已报名": "Signed up", "点击取消": "tap to cancel", "我要参加": "Count me in", "还没有写下这一刻的故事。": "No story for this moment yet.", "本周": "This wk", "更换照片": "Change photo", "保存到本地": "Save to device", "卡片向左滑，可以编辑或删除": "Swipe a card left to edit or delete", "[商品图]": "[Product photo]", "[岩馆名称]": "[Gym name]", "教练带基础动作": "Coach teaches the basics", "单张": "Single", "提交预约": "Submit booking", "预约已提交": "Booking sent", "再次到访": "Revisited", "进阶路线与附近课程": "Progression & nearby courses", "新手友好": "Beginner-friendly", "去探索 →": "Explore →", "[机构名称]": "[Provider]", "已预约 ✓": "Booked ✓", "第一次站起来": "Stood up for the first time", "连续 4 周出门": "Out 4 weeks in a row", "自由潜入门套装": "Freediving starter kit", "3 件": "3 items", "切换到中文": "切换到中文", "milestone-海拔长图.jpg": "milestone-altitude-line.jpg"};
+const CJK = /[一-鿿]/;
+const unit = (n, one, many) => n + ' ' + (n === '1' ? one : many);
+const UNITS = { '天': ['day', 'days'], '小时': ['hour', 'hours'], '分钟': ['min', 'min'], '节': ['session', 'sessions'], '晚': ['night', 'nights'] };
+const PAT = [
+  [/^参考 (¥[\d,]+) 起\/天$/, m => 'From ' + m[1] + '/day'],
+  [/^参考 (¥[\d,]+) 起$/, m => 'From ' + m[1]],
+  [/^报名费 (¥[\d,]+) 起$/, m => 'Entry from ' + m[1]],
+  [/^租车 (¥[\d,]+) 起$/, m => 'Bike rental from ' + m[1]],
+  [/^营位 (¥[\d,]+) 起$/, m => 'Pitch from ' + m[1]],
+  [/^(¥[\d,]+) 起$/, m => 'From ' + m[1]],
+  [/^(约 )?([\d–]+) (天|小时|分钟|节|晚)$/, m => (m[1] ? 'About ' : '') + unit(m[2], UNITS[m[3]][0], UNITS[m[3]][1])],
+  [/^第 (\d+) 步$/, m => 'Step ' + m[1]],
+  [/^第 (\d+) 张$/, m => 'Slide ' + m[1]],
+  [/^第 (\d+) 个里程碑$/, m => 'Milestone #' + m[1]],
+  [/^(\d+) 项户外运动$/, m => m[1] + ' outdoor sports'],
+  [/^常见海拔 (.+)$/, m => 'Typical altitude ' + m[1]],
+  [/^下一站：(.+)$/, m => 'Next: ' + tr(m[1])],
+  [/^没有找到「(.*)」$/, m => 'No results for "' + m[1] + '"'],
+  [/^去装备 ·「(.+)」分类$/, m => 'See ' + tr(m[1]).toLowerCase() + ' gear'],
+  [/^探索 \/ (.+)$/, m => 'Explore / ' + tr(m[1])],
+  [/^返回 (.+)$/, m => 'Back to ' + tr(m[1])],
+  [/^(\S+) 这一层已经有「(.+)」，这次叠加进同一层。$/, m => m[1] + ' already has "' + tr(m[2]) + '" — this one stacks on the same level.'],
+  [/^放在 (\S+) (.+) 和 (\S+) (.+) 之间$/, m => 'Between ' + m[1] + ' ' + tr(m[2]) + ' and ' + m[3] + ' ' + tr(m[4])],
+  [/^(\d+) \/ (\d+) 人$/, m => m[1] + ' / ' + m[2] + ' people'],
+  [/^(\d+) 人$/, m => m[1] + (m[1] === '1' ? ' person' : ' people')],
+  [/^周六 (.+)$/, m => 'Sat ' + m[1]],
+  [/^周日 (.+)$/, m => 'Sun ' + m[1]],
+  [/^(编辑|删除|查看) (-?[\d,]+m) (.+)$/, m => ({ '编辑': 'Edit', '删除': 'Delete', '查看': 'View' })[m[1]] + ' ' + m[2] + ' ' + tr(m[3])],
+  [/^(-?[\d,]+m) (.+) 会从你的海拔线上移除，删除后不能恢复。$/, m => m[1] + ' ' + tr(m[2]) + ' will be removed from your altitude line. This can\'t be undone.'],
+  [/^(-?[\d,]+m) (.+)$/, m => m[1] + ' ' + tr(m[2])],
+  [/^把(.+)加入购物车$/, m => 'Add ' + tr(m[1]) + ' to cart'],
+  [/^装备，购物车 (\d+) 件$/, m => 'Gear, ' + m[1] + ' in cart'],
+  [/^选择最近照片 (\d+)$/, m => 'Recent photo ' + m[1]],
+  [/^(.+) 已加入购物车$/, m => tr(m[1]) + ' added to cart'],
+  [/^已删除 (.+)$/, m => 'Deleted ' + tr(m[1])],
+  [/^链接：(.*)$/, m => 'Link: ' + m[1]],
+  [/^(\d+) 个里程碑 · (\d+) 种运动$/, m => m[1] + ' milestones · ' + m[2] + ' sports'],
+  [/^从 (\S+) 到 (\S+)$/, m => 'From ' + m[1] + ' to ' + m[2]],
+  [/^共 (\d+) 层$/, m => m[1] + ' levels'],
+  [/^#(.+)$/, m => '#' + tr(m[1])]
+];
+const MISS = new Set();
+function tr(s) {
+  const k = s.trim();
+  if (!k || !CJK.test(k)) return s;
+  if (EN[k] != null) return EN[k];
+  for (const [re, f] of PAT) { const m = k.match(re); if (m) return f(m); }
+  if (k.includes(' · ')) return k.split(' · ').map(tr).join(' · ');
+  MISS.add(k); return s;
+}
+const T = s => (LANG === 'en' && typeof s === 'string' && CJK.test(s)) ? tr(s) : s;
+const TATTR = ['aria-label', 'placeholder', 'alt', 'title'];
+function trTree(root) {
+  if (LANG !== 'en') return;
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT);
+  let n;
+  while ((n = w.nextNode())) {
+    if (n.nodeType === 3) {
+      const v = n.nodeValue; if (!CJK.test(v)) continue;
+      const p = n.parentNode && n.parentNode.nodeName; if (p === 'TEXTAREA' || p === 'SCRIPT' || p === 'STYLE') continue;
+      const lead = v.match(/^\s*/)[0], tail = v.match(/\s*$/)[0];
+      n.nodeValue = lead + tr(v.trim()) + tail;
+    } else {
+      for (const a of TATTR) { const v = n.getAttribute(a); if (v && CJK.test(v)) n.setAttribute(a, tr(v)); }
+    }
+  }
+}
+function applyLangDoc() {
+  document.documentElement.lang = LANG === 'en' ? 'en' : 'zh-CN';
+  document.title = 'Milestone';
+}
+function toggleLang() {
+  LANG = LANG === 'en' ? 'zh' : 'en';
+  try { localStorage.setItem(LANG_KEY, LANG); } catch (e) {}
+  applyLangDoc(); render();
+}
+const langBtn = (extra) => `<button class="tap langbtn" ${extra || ''} aria-label="${LANG === 'en' ? '切换到中文' : 'Switch to English'}" data-a="${A(toggleLang)}"><span class="${LANG === 'zh' ? 'on' : ''}">中</span><i>/</i><span class="${LANG === 'en' ? 'on' : ''}">EN</span></button>`;
+
 /* ---------- 视图 ---------- */
 function vWelcome(fr) {
   const sl = SLIDES[S.slide];
@@ -718,6 +859,7 @@ function vWelcome(fr) {
     <button class="tap wstrips" data-a="${A(() => set({ slide: (S.slide + 1) % 3 }))}" aria-label="下一张介绍">
       ${STRIPS.map(s => `<span class="strip"><img src="${s[1]}" alt=""><span class="altlabel" style="top:30px">${s[0]}</span></span>`).join('')}
     </button>
+    <div style="position:absolute;top:var(--top);right:16px;z-index:4">${langBtn()}</div>
     <div class="wlogo"><span class="box">${sv(P.logo, 26, 2.4)}</span><span class="txt">MILE<br>STONE</span></div>
     <div class="wsheet ${fr.screen ? 'sheet' : ''}">
       <div class="col g10 fade" style="min-height:108px"><h1>${sl.title}</h1><p>${sl.sub}</p></div>
@@ -753,6 +895,7 @@ function vMain(fr) {
     <header class="top col g14">
       <div class="row between"><h1 class="h1">我的海拔线</h1>
         <div class="row g8">
+          <span class="tabonly">${langBtn('style="height:48px;border-radius:24px"')}</span>
           <button class="tap icbtn" data-a="${A(shareLong)}" aria-label="生成并分享海拔长图">${sv(P.share, 20, 1.8)}</button>
           <button class="tap icbtn pri" data-a="${A(() => openRecord())}" aria-label="添加新记录">${sv(P.plus, 22, 2.4)}</button>
         </div></div>
@@ -809,13 +952,13 @@ function vExplore(fr) {
       <span class="tilecap"><b>${x.name}</b><span>${x.cat} · ${x.diff}</span></span></button>`;
   return `<div class="scr col ${fr.screen ? S.anim : ''}">
     <header class="top col g14">
-      <h1 class="h1">探索</h1>
+      <div class="row between g8"><h1 class="h1">探索</h1>${langBtn()}</div>
       <label class="search">${sv(P.search, 20, 2)}<input id="q" type="search" autocomplete="off" aria-label="搜索户外运动" placeholder="搜索运动，比如 潜水、滑雪" value="${esc(S.q)}" data-in="${A(v => set({ q: v }))}"></label>
       <div class="hscroll">${ECATS.map(c => `<button class="tap chip ${c === S.ecat ? 'on' : ''}" data-a="${A(() => set({ ecat: c }))}">${c}</button>`).join('')}</div>
     </header>
     <div class="scroll f1" data-sk="explore" style="padding:4px 16px 116px">
       <span class="sm mute" style="display:block;margin:0 2px 10px">${list.length} 项户外运动</span>
-      <div class="grid2 g12">${list.map(tile).join('')}</div>
+      <div class="grid2 g12 tiles">${list.map(tile).join('')}</div>
       ${list.length ? '' : `<div class="col g12" style="padding:48px 20px;align-items:center;text-align:center">
         <span class="b" style="font-size:16px">没有找到「${esc(q)}」</span><span class="s14 mute">换个关键词，或者看看全部运动</span>
         <button class="tap pill" style="height:44px;padding:0 20px" data-a="${A(() => set({ q: '', ecat: '全部' }))}">清除搜索</button></div>`}
@@ -904,8 +1047,8 @@ function vHabit(fr) {
     { who: '小米', ini: '米', bg: '#F0A0D0', ink: '#3D0026', alt: '-1m', note: '浮潜 · 连续 4 周出门', img: IMG.swim }
   ];
   return `<div class="scr ${fr.screen ? S.anim : ''}">
-    <div class="scroll col g14 list" data-sk="habit" style="height:844px;padding:52px 16px 116px">
-      <h1 class="h1" style="margin-bottom:4px">习惯</h1>
+    <div class="scroll col g14 list" data-sk="habit" style="height:100%;padding:var(--top) 16px 116px">
+      <div class="row between g8" style="margin-bottom:4px"><h1 class="h1">习惯</h1>${langBtn()}</div>
       <section class="card col g14" style="padding:20px 18px">
         <div class="row g8" style="align-items:baseline"><span class="gt" style="font-size:48px;font-weight:800;line-height:1">${did ? 7 : 6}</span><span class="b" style="font-size:16px">周连续出门</span></div>
         <div class="grid4 g6" style="grid-template-columns:repeat(8,minmax(0,1fr))">
@@ -941,9 +1084,9 @@ function vShop(fr) {
   const hasBack = S.hist.length > 0;
   const cats = Object.keys(GOODS);
   return `<div class="scr ${fr.screen ? S.anim : ''}">
-    <div class="scroll col g16 list" data-sk="shop" style="height:844px;padding:52px 16px 116px">
+    <div class="scroll col g16 list" data-sk="shop" style="height:100%;padding:var(--top) 16px 116px">
       ${hasBack ? `<button class="tap back solid" style="height:44px;margin-top:-4px;font-size:14px" data-a="${A(goBack)}">${sv(P.back, 18, 2.2)}返回 ${spOf(S.sp).name}</button>` : ''}
-      <h1 class="h1">装备</h1>
+      <div class="row between g8"><h1 class="h1">装备</h1>${langBtn()}</div>
       <section style="position:relative;height:160px;border-radius:28px;overflow:hidden">
         <img src="${IMG.free}" alt="" style="width:100%;height:100%;object-fit:cover">
         <div class="col between" style="position:absolute;inset:0;background:rgba(0,0,0,.55);padding:18px 20px">
@@ -955,7 +1098,7 @@ function vShop(fr) {
         </div>
       </section>
       <div class="hscroll">${cats.map(c => `<button class="tap chip ${c === S.cat ? 'on' : ''}" data-a="${A(() => set({ cat: c }))}">${c}</button>`).join('')}</div>
-      <div class="grid2 g12">
+      <div class="grid2 g12 goods">
         ${GOODS[S.cat].map(p => {
           const inCart = !!S.cart[p.id];
           return `<div class="good ${fr.screen ? 'fade' : ''}" data-k="i-g-${p.id}">
@@ -985,7 +1128,7 @@ function vDone(fr) {
   const sub = dup ? fmt(last.alt) + ' 这一层已经有「' + esc(dup.title) + '」，这次叠加进同一层。' : (p && n ? '放在 ' + fmt(p.alt) + ' ' + esc(p.title) + ' 和 ' + fmt(n.alt) + ' ' + esc(n.title) + ' 之间' : (p ? '刷新了你的最低点！' : '刷新了你的最高点！'));
   const confs = [[-150, -90, '#F04BB8'], [140, -100, '#FF7A3D'], [-160, 40, '#3AA8F0'], [150, 60, '#F04BB8'], [-60, -150, '#fff'], [70, -150, '#3AA8F0'], [-110, 130, '#FF7A3D'], [110, 140, '#fff']];
   return `<div class="scr col ${fr.screen ? 'fade' : ''}">
-    <header class="row" style="flex:none;padding:50px 16px 0;justify-content:flex-end">
+    <header class="row" style="flex:none;padding:var(--top) 16px 0;justify-content:flex-end">
       <button class="tap icbtn" style="width:52px;height:52px;border-radius:26px" data-a="${A(() => tab('main'))}" aria-label="关闭">${sv(P.close, 20, 2.2)}</button>
     </header>
     <div class="f1 col g20" style="padding:0 20px;align-items:center;justify-content:center;gap:20px;text-align:center">
@@ -1018,11 +1161,13 @@ function vNav(fr) {
   const cur = k => S.tab === k ? 'aria-current="page"' : '';
   const cc = cartCount();
   return `<nav class="nav" aria-label="主导航">
+    <span class="nlogo" aria-hidden="true"><span class="box">${sv(P.logo, 18, 2.4)}</span>MILESTONE</span>
     <button class="tap nb ${on('main')}" ${cur('main')} data-a="${A(() => tab('main'))}">${sv(P.mtn, 24)}里程碑</button>
     <button class="tap nb ${on('explore')}" ${cur('explore')} data-a="${A(() => tab('explore'))}">${sv(P.compass, 24)}探索</button>
-    <button class="tap nplus" aria-label="记录新里程碑" data-a="${A(() => openRecord(S.screen === 'sport' ? S.sp : null))}">${sv(P.plus, 26, 2.6)}</button>
+    <button class="tap nplus" aria-label="记录新里程碑" data-a="${A(() => openRecord(S.screen === 'sport' ? S.sp : null))}">${sv(P.plus, 26, 2.6)}<span class="nlbl">记录里程碑</span></button>
     <button class="tap nb ${on('habit')}" ${cur('habit')} data-a="${A(() => tab('habit'))}">${sv(P.cal, 24)}习惯</button>
     <button class="tap nb ${on('shop')}" ${cur('shop')} aria-label="装备，购物车 ${cc} 件" data-a="${A(() => tab('shop'))}">${sv(P.bag, 24)}装备${cc ? `<span class="badge ${fr.cart ? 'bump' : ''}">${cc}</span>` : ''}</button>
+    <span class="nlangwrap">${langBtn()}</span>
   </nav>`;
 }
 
@@ -1049,7 +1194,7 @@ function vRecord(fr) {
   });
   return `<div class="modal">
     <button class="scrim ${fr.modal ? 'dim' : ''}" aria-label="关闭记录" data-a="${A(() => set({ modal: null }))}"></button>
-    <div class="sheetbox ${fr.modal ? 'sheet' : ''}" role="dialog" aria-modal="true" aria-label="${editing ? '编辑里程碑' : '记录新里程碑'}" style="top:44px">
+    <div class="sheetbox ${fr.modal ? 'sheet' : ''}" role="dialog" aria-modal="true" aria-label="${editing ? '编辑里程碑' : '记录新里程碑'}" style="top:calc(var(--top) + 4px)">
       <div class="col g8" style="flex:none;padding:10px 16px 6px">
         <span class="grab" aria-hidden="true"></span>
         <div class="row between">
@@ -1145,7 +1290,7 @@ function vShare(fr) {
   const close = A(() => set({ modal: null }));
   return `<div class="modal">
     <button class="scrim ${fr.modal ? 'dim' : ''}" aria-label="关闭分享" data-a="${close}"></button>
-    <div class="sheetbox ${fr.modal ? 'sheet' : ''}" role="dialog" aria-modal="true" aria-label="分享" style="top:44px">
+    <div class="sheetbox ${fr.modal ? 'sheet' : ''}" role="dialog" aria-modal="true" aria-label="分享" style="top:calc(var(--top) + 4px)">
       <div class="col g8" style="flex:none;padding:10px 16px 6px">
         <span class="grab" aria-hidden="true"></span>
         <div class="row between"><button class="tap textbtn mute" data-a="${close}">取消</button><span style="font-size:17px;font-weight:800">分享</span><span style="width:52px"></span></div>
@@ -1204,7 +1349,9 @@ function render() {
   if (fr.modal) { delete scrollMem.record; delete scrollMem.fsports; delete scrollMem.preview; }
   if (S.modal === 'share' && S.share && last.shareMode !== S.share.mode) delete scrollMem.preview;
   ACTS = [];
-  const showNav = ['main', 'explore', 'habit'].includes(S.screen) || (S.screen === 'shop' && !S.hist.length);
+  const WIDE = innerWidth >= 1024;
+  const showNav = WIDE ? !['welcome', 'done'].includes(S.screen) : ['main', 'explore', 'habit'].includes(S.screen) || (S.screen === 'shop' && !S.hist.length);
+  stage.classList.toggle('side', WIDE && showNav);
   let html = `<div class="scrwrap" data-k="scr-${S.screen}">${(VIEWS[S.screen] || vMain)(fr)}</div>`;
   if (showNav) html += `<div data-k="nav">${vNav(fr)}</div>`;
   const mv = { record: vRecord, book: vBook, share: vShare, confirm: vConfirm }[S.modal];
@@ -1216,7 +1363,7 @@ function render() {
   const scrOut = oldScr && oldScr.getAttribute('data-k') !== 'scr-' + S.screen ? oldScr : null;
   const modalOut = oldModal && oldModal.getAttribute('data-k') !== 'modal-' + S.modal ? oldModal : null;
   if (scrOut) scrOut.remove(); if (modalOut) modalOut.remove();
-  const tmp = document.createElement('div'); tmp.innerHTML = html;
+  const tmp = document.createElement('div'); tmp.innerHTML = html; trTree(tmp);
   if (stage.querySelector('#noscript')) stage.innerHTML = '';
   morphKids(stage, tmp);
   if (scrOut) { stage.insertBefore(scrOut, stage.firstChild); retire(scrOut, S.anim === 'back-in' ? 'out-back' : S.anim === 'push' ? 'out-push' : 'out-fade', 340); }
@@ -1282,21 +1429,19 @@ stage.addEventListener('keydown', e => {
 });
 
 /* ---------- 适配屏幕 ---------- */
+let lastWide = innerWidth >= 1024;
 function fit() {
-  const W = window.innerWidth, H = window.innerHeight; const mobile = W <= 520;
-  const k = mobile ? Math.min(W / 390, H / 844) : Math.min(1, (W - 48) / 410, (H - 48) / 864);
-  wrap.style.width = 390 * k + 'px'; wrap.style.height = 844 * k + 'px';
-  stage.style.transform = 'scale(' + k + ')'; SCALE = k;
-  wrap.classList.toggle('full', mobile);
+  SCALE = 1;
+  const w = innerWidth >= 1024;
+  if (w !== lastWide) { lastWide = w; if (typeof render === 'function' && !stage.querySelector('#noscript')) render(); }
 }
 window.addEventListener('resize', fit);
 fit();
+applyLangDoc();
 const startAt = (location.hash || '').slice(1);
 if (['main', 'explore', 'habit', 'shop'].includes(startAt)) { S.screen = startAt; S.tab = startAt; }
 restore();
 render();
-</script>
-<script>
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
   window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
 }

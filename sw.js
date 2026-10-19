@@ -1,5 +1,5 @@
 /* Milestone service worker：离线可用 + 更新时自动换新 */
-const VERSION = 'milestone-v1';
+const VERSION = 'milestone-web-v3';
 const FONT_CACHE = 'milestone-fonts';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon.png', './icons/favicon-32.png'];
 

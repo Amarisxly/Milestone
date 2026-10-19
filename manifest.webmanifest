@@ -1,19 +1,38 @@
 {
   "name": "Milestone 户外里程碑",
   "short_name": "Milestone",
-  "description": "记录你到过的每一个高度：海拔线、户外运动探索、习惯和装备。",
-  "id": "./",
+  "description": "记录你到过的每一个高度 · Every height you have reached, on one altitude line.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
+  "orientation": "any",
   "background_color": "#000000",
   "theme_color": "#000000",
   "lang": "zh-CN",
-  "categories": ["sports", "lifestyle", "travel"],
+  "categories": [
+    "sports",
+    "lifestyle",
+    "travel"
+  ],
   "icons": [
-    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
-  ]
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "id": "./?v=web"
 }
